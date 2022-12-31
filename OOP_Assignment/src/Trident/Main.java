@@ -19,16 +19,18 @@ public class Main {
             System.out.println("Enter your choice");
             menuChoice = input.nextInt();
             switch (menuChoice) {
-                case 1 -> addMenu();
-                case 2 -> updateMenu();
-                case 3 -> displayMenu();
-                case 4 -> deleteMenu();
-                case 5 -> {
-                    return;
-                }
-                default -> {
-                    System.out.println("Enter a valid choice");
-                }
+                case 1 : addMenu();
+                         break;
+                case 2 : updateMenu();
+                         break;
+                case 3 : displayMenu();
+                         break;
+                case 4 : deleteMenu();
+                         break;
+                case 5 : System.exit(0);
+                         break;
+                default: System.out.println("Enter a valid choice");
+                         break;
             }
         } while(true);
     }
@@ -43,23 +45,20 @@ public class Main {
             System.out.println("Enter your choice");
             choiceAdd = input.nextInt();
             switch (choiceAdd) {
-                case 1 -> {
-                    departmentAccess.addDep();
-                    return;//to return to main menu
-                }
-                case 2 -> {
-                    courseAccess.addCourse();
-                    return;//to return to main menu
-                }
-                case 3 -> {
-                    studentAccess.addStudent();
-                    return;//to return to main menu
-                }
-                case 4 -> {
-                    studentAccess.addGrade();
-                    return;//to return to main menu
-                }
-                default -> System.out.println("Enter a valid choice");
+                case 1 : departmentAccess.addDep();
+                         break;
+
+                case 2 : courseAccess.addCourse();
+                         break;
+
+                case 3 : studentAccess.addStudent();
+                         break;
+
+                case 4 : studentAccess.addGrade();
+                         break;
+
+                default : System.out.println("Enter a valid choice");
+                         break;
             }
         } while (choiceAdd > 4);
     }
@@ -99,19 +98,20 @@ public class Main {
             System.out.println("Enter your choice");
             choiceDisplay = input.nextInt();
             switch (choiceDisplay) {
-                case 1 -> {
-                    departmentAccess.displayDep();
-                    return;//to return to main menu
-                }
-                case 2 -> {
-                    courseAccess.displayCourse();
-                    return;//to return to main menu
-                }
-                case 3 -> {
-                    studentAccess.displayStudent();
-                    return;//to return to main menu
-                }
-                default -> System.out.println("Enter a valid choice");
+                case 1 : departmentAccess.displayDep();
+                         break;
+
+
+                case 2 : courseAccess.displayCourse();
+                         break;
+
+
+                case 3 : studentAccess.displayStudent();
+                         break;
+
+
+                default : System.out.println("Enter a valid choice");
+                         break;
             }
         }while(choiceDisplay>3);
     }
@@ -126,21 +126,18 @@ public class Main {
             System.out.println("Enter your choice");
             choiceDelete = input.nextInt();
             switch (choiceDelete) {
-                case 1 -> {
-                    departmentAccess.deleteDep();
-                    return;//to return to main menu
-                }
-                case 2 -> {
-                    courseAccess.deleteCourse();
-                    return;//to return to main menu
-                }
-                case 3 -> {
-                    studentAccess.deleteStudent();
-                    return;//to return to main menu
-                }
-                default -> {
+                case 1 : departmentAccess.deleteDep();
+                         break;
+
+                case 2 : courseAccess.deleteCourse();
+                         break;
+
+                case 3 : studentAccess.deleteStudent();
+                         break;
+
+                default :
                     System.out.println("Enter a valid choice");
-                }
+
             }
         }while(choiceDelete>3);
     }

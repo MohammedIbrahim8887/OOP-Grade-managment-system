@@ -43,11 +43,13 @@ public class BasicFunctions {// has common search functions used by impl classes
             input.nextLine();
             String choice = input.nextLine().toUpperCase();
             switch (choice) {
-                case "Y" -> {
+                case "Y" : {
                     return;
                 }
-                case "N" -> System.exit(0);
-                default -> System.out.println("Enter a valid choice");
+                case "N" : System.exit(0);
+                           break;
+                default : System.out.println("Enter a valid choice");
+                          break;
             }
         }while (true);
     }

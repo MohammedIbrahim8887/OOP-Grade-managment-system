@@ -59,12 +59,23 @@ public class Department_Impl extends BasicFunctions {//extended to use all the b
             System.out.println("Department with ID \""+ID+"\" doesn't exist.");
             return;
         }
-        //TODO: we should also remove all the courses and students in this department
-        for(int i = location; i< noOfDepartments -1; i++) {//ma-she-ga-sheg
-            departments[i]= departments[i+1];
+        else{
+            for(int i = location; i< noOfDepartments -1; i++) {//ma-she-ga-sheg
+                if(students[i].getSDID() == ID){
+                    students[i].SID = null;
+                    noOfStudents--;
+                }
+                if(courses[i].getDID() == ID){
+                    courses[i].DID = 0;
+                    noOfCourses--;
+                }
+                departments[i]= departments[i+1];
+            }
+
+            noOfDepartments--;
+            System.out.println("Department Successfully Deleted");
         }
-        noOfDepartments--;
-        System.out.println("Department Succesfully Deleted");
+
         stopOrContinue();
     }
 }

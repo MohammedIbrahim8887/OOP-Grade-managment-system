@@ -44,7 +44,32 @@ public class Course_Impl extends BasicFunctions {//extended to use all the basic
         noOfCourses++;
     }
     public void updateCourse() {
-        //TODO: MAKE THE UPDATE COURSE PART
+        input.nextLine();
+        System.out.println("Enter course ID:");
+        String Cid = input.nextLine().toUpperCase();
+        int location = courseLocation(Cid);
+        if(location == -1){
+            System.out.println("Course not found!!!");
+        }
+        else{
+            System.out.println("Enter Course Name:");
+            String cName = input.nextLine().toUpperCase();
+            courses[location].setCName(cName);
+            System.out.println("Enter Credit hour:");
+            int creditHr = input.nextInt();
+            courses[location].setCreditHr(creditHr);
+            System.out.println("Enter Contact hour:");
+            int contacthr = input.nextInt();
+            courses[location].setContactHr(contacthr);
+            System.out.println("Enter Lecture hour:");
+            int LecHr = input.nextInt();
+            courses[location].setLectureHr(LecHr);
+            System.out.println("Enter Lab hour:");
+            int LabHr = input.nextInt();
+            courses[location].setLabHr(LabHr);
+            System.out.println("Details Successfully Changed");
+        }
+
     }
     public void displayCourse(){
         if (noOfCourses == 0) {
@@ -54,8 +79,12 @@ public class Course_Impl extends BasicFunctions {//extended to use all the basic
             System.out.println("Here is the list of all Courses");
             int i = 0;
             while (i < noOfCourses) {
-                System.out.println(courses[i].CID + "\t" + courses[i].CID + "\t" +
-                        courses[i].CreditHr + "\t" + courses[i].ContactHr);
+                System.out.println("Course ID: " + courses[i].CID.trim() + "\t " +
+                        "Course Name: " + courses[i].CName + "\t " +
+                        "Credit hour: " + courses[i].CreditHr + "\t " +
+                        "Contact hour " + courses[i].ContactHr + "\t" +
+                        "Lab hour: " + courses[i].LabHr + "\t" +
+                        "Lecture hour: " + courses[i].LectureHr);
                 i++;
             }
             stopOrContinue();
@@ -71,13 +100,24 @@ public class Course_Impl extends BasicFunctions {//extended to use all the basic
             System.out.println("Course with ID \""+ CID +"\" doesn't exist.");
             return;
         }
-        //TODO: we should also remove all the courses taken in students of the course that is to be deleted
-        for(int i = location; i< noOfCourses-1; i++) {//ma-she-ga-sheg
-            courses[i]= courses[i+1];
+        else{
+
+            for(int i=0;i<noOfStudents;i++){
+                int did = courses[i].getDID();
+                int location1 = courseLocation(CID,did);
+                if(location1 != -1){
+                    System.out.println("Hello world");
+                    for(int j=location1;j<noOfCourses;j++){
+                        students[i].coursesTaken[location1] = students[i].coursesTaken[location1+1];
+                        courses[location1] = courses[location1 + 1];
+                        location++;
+                        noOfCourses--;
+                        students[i].noOfCoursesTaken--;
+                    }
+                }
+            }
         }
-        noOfCourses--;
-        System.out.println("Student successfully Deleted");
-        stopOrContinue();
+
     }
 
 
