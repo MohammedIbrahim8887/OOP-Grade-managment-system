@@ -54,7 +54,7 @@ public class Main {
                 case 3 : studentAccess.addStudent();
                          break;
 
-                case 4 : studentAccess.addGrade();
+                case 4 : studentAccess.updateStudentGrade();
                          break;
 
                 default : System.out.println("Enter a valid choice");
@@ -129,10 +129,10 @@ public class Main {
                 case 1 : departmentAccess.deleteDep();
                          break;
 
-                case 2 : courseAccess.deleteCourse();
+                case 2 : courseAccess.deleteCourseForm();
                          break;
 
-                case 3 : studentAccess.deleteStudent();
+                case 3 : studentAccess.deleteStudentForm();
                          break;
 
                 default :

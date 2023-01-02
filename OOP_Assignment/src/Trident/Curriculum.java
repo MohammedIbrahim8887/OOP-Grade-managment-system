@@ -2,7 +2,7 @@ package Trident;
 
 import java.util.Scanner;
 
-// this class is imported in in all the impls
+// this class is imported in all the impls
 public class Curriculum {
     // these below are all the departments courses and students of the curriculum
     // they are  accessed in Imp classes by importing this class (check on the top of all imp classes)

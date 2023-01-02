@@ -37,7 +37,7 @@ public class BasicFunctions {// has common search functions used by impl classes
         }
         return -1;
     }
-    public void stopOrContinue(){
+    public void stopOrContinue(){// do we really need this
         do{
             System.out.println("Would you like to go back to the main menu? (Y/N)");
             input.nextLine();

@@ -38,44 +38,47 @@ public class Department_Impl extends BasicFunctions {//extended to use all the b
     public void displayDep(){
         if (noOfDepartments == 0) {
             System.out.println("No Records Available");
-        }
-        else {
-            System.out.println("Here is the list of all Departments");
-            int i = 0;
-            while (i < noOfDepartments) {
-                System.out.println(departments[i].DName + "\t" +
-                        departments[i].DID + "\t" + departments[i].AccYear);
-                i++;
-            }
             stopOrContinue();
+            return;
         }
+        System.out.println("Here is the list of all Departments");
+        int i = 0;
+        while (i < noOfDepartments) {
+            System.out.println(departments[i].DName + "\t" +
+                    departments[i].DID + "\t" + departments[i].AccYear);
+            i++;
+        }
+        stopOrContinue();
     }
     public void deleteDep(){
         // this function shifts all the items after the deleted index to the left and decreases the noOfDep by 1
         System.out.println("Enter a department ID:");
-        int ID = input.nextInt();
-        int location = departmentLocation(ID);;
+        int DID = input.nextInt();
+        int location = departmentLocation(DID);;
         if (location == -1){
-            System.out.println("Department with ID \""+ID+"\" doesn't exist.");
+            System.out.println("Department with ID \""+DID+"\" doesn't exist.");
+            stopOrContinue();
             return;
         }
-        else{
-            for(int i = location; i< noOfDepartments -1; i++) {//ma-she-ga-sheg
-                if(students[i].getSDID() == ID){
-                    students[i].SID = null;
-                    noOfStudents--;
-                }
-                if(courses[i].getDID() == ID){
-                    courses[i].DID = 0;
-                    noOfCourses--;
-                }
-                departments[i]= departments[i+1];
+        for (int i = 0; i < noOfStudents; i++) {//for deleting all students in the department
+            if(students[i].SDID== DID){
+                studentAccess.deleteStudent(i);
+                i--;
             }
-
-            noOfDepartments--;
-            System.out.println("Department Successfully Deleted");
         }
-
+        for (int i = 0; i < noOfCourses; i++) {
+            System.out.println(i + " iteration");//for deleting all courses in the department
+            if(courses[i].DID == DID){
+                System.out.println("got in!");
+                courseAccess.deleteCourse(i);
+                i--;
+            }
+        }
+        for(int i = location; i< noOfDepartments -1; i++) {//ma-she-ga-sheg
+            departments[i]= departments[i+1];
+        }
+        noOfDepartments--;
+        System.out.println("Department " + DID + " Successfully Deleted");
         stopOrContinue();
     }
 }

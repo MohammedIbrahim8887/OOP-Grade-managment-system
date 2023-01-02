@@ -1,6 +1,8 @@
 package Trident;
 
 
+import java.util.Objects;
+
 import static Trident.Curriculum.*;
 
 public class Course_Impl extends BasicFunctions {//extended to use all the basic functions that are common to all impls
@@ -78,21 +80,24 @@ public class Course_Impl extends BasicFunctions {//extended to use all the basic
         else {
             System.out.println("Here is the list of all Courses");
             int i = 0;
+            System.out.println(
+                    "Course ID\t" + "Course Name\t" + "Credit hour\t" + "Contact hour\t" +
+                    "Lab hour\t" + "Lecture hour\t" + "Department Id\t"
+            );
             while (i < noOfCourses) {
-                System.out.println("Course ID: " + courses[i].CID.trim() + "\t " +
-                        "Course Name: " + courses[i].CName + "\t " +
-                        "Credit hour: " + courses[i].CreditHr + "\t " +
-                        "Contact hour " + courses[i].ContactHr + "\t" +
-                        "Lab hour: " + courses[i].LabHr + "\t" +
-                        "Lecture hour: " + courses[i].LectureHr);
+                System.out.println(
+                        courses[i].CID + "\t " + courses[i].CName + "\t " +
+                        courses[i].CreditHr + "\t " + courses[i].ContactHr + "\t" +
+                        courses[i].LabHr + "\t" + courses[i].LectureHr + "\t" + courses[i].DID
+                );
                 i++;
             }
             stopOrContinue();
         }
     }
-    public void deleteCourse() {
+    public void deleteCourseForm() {
         // this function shifts all the items after the deleted index to the left and decreases the noOfDep by 1
-        input.nextLine();
+        input.nextLine().toUpperCase();
         System.out.println("Enter a Course ID:");
         String CID = input.nextLine();
         int location = courseLocation(CID);
@@ -100,25 +105,42 @@ public class Course_Impl extends BasicFunctions {//extended to use all the basic
             System.out.println("Course with ID \""+ CID +"\" doesn't exist.");
             return;
         }
-        else{
-
-            for(int i=0;i<noOfStudents;i++){
-                int did = courses[i].getDID();
-                int location1 = courseLocation(CID,did);
-                if(location1 != -1){
-                    System.out.println("Hello world");
-                    for(int j=location1;j<noOfCourses;j++){
-                        students[i].coursesTaken[location1] = students[i].coursesTaken[location1+1];
-                        courses[location1] = courses[location1 + 1];
-                        location++;
-                        noOfCourses--;
-                        students[i].noOfCoursesTaken--;
-                    }
+        deleteCourseTaken(location);
+        deleteCourse(location);
+        stopOrContinue();
+    }
+    public void deleteCourseTaken(int ci){// used for deleting course only
+        System.out.println("\tlevel 1");
+        for(int i=0;i<noOfStudents;i++){// iterating through the students, deleting the course taken
+            System.out.println("\t\t" + i + "student");
+            if (courses[ci].DID != students[i].SDID){
+                //if the student is not in the same department as the course
+                continue;
+            }
+            System.out.println("\t\t" + i + "student is in same department");
+            for (int j = 0; j<students[i].noOfCoursesTaken; j++){// iterating through the course taken by the student
+                System.out.println("\t\t\t" + j + "course taken");
+                if (!Objects.equals(courses[ci].CID, students[i].coursesTaken[j].CID)){
+                    //if the course taken is not the same the course we want to delete
+                    continue;
                 }
+                System.out.println("\t\t\t" + j + "course taken is target");
+                for (int k = j; k<students[i].noOfCoursesTaken - 1; k++){// ma-she-ga-she-g the course taken
+                    students[i].coursesTaken[k] = students[i].coursesTaken[k+1];
+                }
+                System.out.println("\t\t\t" + j + "suffled and done");
+                students[i].noOfCoursesTaken--;
+                break;// if it already found and deleted the course taken
             }
         }
-
     }
-
+    public void deleteCourse(int ci){// used for deleting course here and in department implementation
+        String cid = courses[ci].CID;
+        for (int i=ci; i<noOfCourses - 1;i++){
+            courses[i] = courses[i+1];
+        }
+        noOfCourses--;
+        System.out.println("Course with ID \""+ cid +"\" deleted.");
+    }
 
 }
