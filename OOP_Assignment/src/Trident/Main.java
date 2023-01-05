@@ -1,7 +1,7 @@
 package Trident;
 
 import static Trident.Curriculum.*;
-
+//TODO: make private
 public class Main {
     // read class curriculum after this to understand the main logic of the code
     public static void main(String[] args) {
@@ -54,7 +54,7 @@ public class Main {
                 case 3 : studentAccess.addStudent();
                          break;
 
-                case 4 : studentAccess.addGrade();
+                case 4 : studentAccess.updateStudentGrade();
                          break;
 
                 default : System.out.println("Enter a valid choice");
@@ -91,29 +91,26 @@ public class Main {
     public static void displayMenu() {
         int choiceDisplay;
         do{
-            System.out.println("1. Display all Departments");
+            System.out.println("1. Display All Departments");
             System.out.println("2. Display Course List");
-            System.out.println("3. Display Student Details");
+            System.out.println("3. Display Student List");
+            System.out.println("4. Display Student Info");
             System.out.println("\t\t\t* * * * * * * * * * * * * * *");
             System.out.println("Enter your choice");
             choiceDisplay = input.nextInt();
             switch (choiceDisplay) {
                 case 1 : departmentAccess.displayDep();
                          break;
-
-
                 case 2 : courseAccess.displayCourse();
                          break;
-
-
                 case 3 : studentAccess.displayStudent();
                          break;
-
-
+                case 4 : studentAccess.calculateGPA();
+                        break;
                 default : System.out.println("Enter a valid choice");
                          break;
             }
-        }while(choiceDisplay>3);
+        }while(choiceDisplay>4);
     }
     public static void deleteMenu(){
         int choiceDelete;
@@ -129,10 +126,10 @@ public class Main {
                 case 1 : departmentAccess.deleteDep();
                          break;
 
-                case 2 : courseAccess.deleteCourse();
+                case 2 : courseAccess.deleteCourseForm();
                          break;
 
-                case 3 : studentAccess.deleteStudent();
+                case 3 : studentAccess.deleteStudentForm();
                          break;
 
                 default :

@@ -8,7 +8,7 @@ public class Course {
     int LectureHr;
     String CName;
     int DID;
-
+    public static int noOfCourses = 0;// moved here from curriculum
     public int getDID() {
         return DID;
     }

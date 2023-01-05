@@ -6,6 +6,7 @@ public class Student {
     String MName;
     String LName;
     int SDID;
+    public static int noOfStudents = 0;//moved here from curriculum
     //the field bellow works the same as departments in curriculum
     CourseTaken[] coursesTaken = new CourseTaken[10];//every student has at most 10 courses
     int noOfCoursesTaken;//to keep track of how many courses this student is already taking
