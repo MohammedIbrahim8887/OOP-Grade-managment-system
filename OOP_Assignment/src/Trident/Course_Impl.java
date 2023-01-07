@@ -7,19 +7,20 @@ import static Trident.Curriculum.*;
 
 public class Course_Impl extends BasicFunctions {//extended to use all the basic functions that are common to all impls
     public void addCourse(){
+        input.nextLine();
         System.out.println("Enter Department ID");
-        int Did = input.nextInt();
+        String Did = input.nextLine();
         if(departmentLocation(Did) == -1){ // calls the function below that uses a basic linear search
             System.out.println("No Such Department Exists!!!");
             return;
         }
         int location = departmentLocation(Did);
-        System.out.println("You Have Selected" + " " + departments[location].DName + " " + departments[location].DID);
+        System.out.println("You Have Selected" + " " + departments[location].getDName() + " " + departments[location].getDID());
         System.out.println("Enter number of courses you want to Add.");
-        int num = input.nextInt() + Course.noOfCourses;
+        int num = input.nextInt() + Course.getNoOfCourses();
         //the loop starts at the noOf departments
         //if this is the first entry i = 0
-        for (int j = Course.noOfCourses; j<num; j++) {
+        for (int j = Course.getNoOfCourses(); j<num; j++) {
             System.out.println("Enter Course ID: ");
             input.nextLine();
             String cid = input.nextLine().toUpperCase();
@@ -37,18 +38,18 @@ public class Course_Impl extends BasicFunctions {//extended to use all the basic
                 System.out.println("Lab hour and Lecture are not equal. Fill out everything out again :)");
                 return;
             }
-            courses[Course.noOfCourses] = new Course(cid, creditHr, contactHr, lab, lec, cName, Did);
+            courses[Course.getNoOfCourses()] = new Course(cid, creditHr, contactHr, lab, lec, cName, Did);
             //after inputting all te data for the first course courses[0] it will ++ by one down below
             //so that when the next entry is imputed it will be in courses[1]
             // this loop below is to update all the students in the department take the new course
-            for (int i = 0; i < Student.noOfStudents; i++) {
-                if (Did == students[i].SDID) {
-                    int noCoursesByStudent = students[i].noOfCoursesTaken;
-                    students[i].coursesTaken[noCoursesByStudent] = new CourseTaken(courses[Course.noOfCourses]);
-                    students[i].noOfCoursesTaken++;
+            for (int i = 0; i < Student.getNoOfStudents(); i++) {
+                if (Objects.equals(Did, students[i].getSDID())) {
+                    int noCoursesByStudent = students[i].getNoOfCoursesTaken();
+                    students[i].setCoursesTaken(new CourseTaken(courses[Course.getNoOfCourses()]), noCoursesByStudent);
+                    students[i].setNoOfCoursesTaken(students[i].getNoOfCoursesTaken() + 1);
                 }
             }
-            Course.noOfCourses++;
+            Course.setNoOfCourses( Course.getNoOfCourses() + 1);
         }
     }
     public void updateCourse() {
@@ -62,24 +63,20 @@ public class Course_Impl extends BasicFunctions {//extended to use all the basic
         }
         System.out.println("Enter Course Name:");
         String cName = input.nextLine().toUpperCase();
-        courses[location].setCName(cName);
         System.out.println("Enter Credit hour:");
         int creditHr = input.nextInt();
-        courses[location].setCreditHr(creditHr);
         System.out.println("Enter Contact hour:");
-        int contacthr = input.nextInt();
-        courses[location].setContactHr(contacthr);
+        int contactHr = input.nextInt();
         System.out.println("Enter Lecture hour:");
         int LecHr = input.nextInt();
-        courses[location].setLectureHr(LecHr);
         System.out.println("Enter Lab hour:");
         int LabHr = input.nextInt();
-        courses[location].setLabHr(LabHr);
         System.out.println("Details Successfully Changed");
+        courses[location] = new Course(Cid, creditHr, contactHr, LabHr, LecHr, cName, courses[location].getDID());
         changeCourseTaken(location,'u');
     }
     public void displayCourse(){
-        if (Course.noOfCourses == 0) {
+        if (Course.getNoOfCourses() == 0) {
             System.out.println("No Records Available");
         }
         else {
@@ -89,11 +86,11 @@ public class Course_Impl extends BasicFunctions {//extended to use all the basic
                     "Course ID\t" + "Course Name\t" + "Credit hour\t" + "Contact hour\t" +
                     "Lab hour\t" + "Lecture hour\t" + "Department Id\t"
             );
-            while (i < Course.noOfCourses) {
+            while (i < Course.getNoOfCourses()) {
                 System.out.println(
-                        courses[i].CID + "\t " + courses[i].CName + "\t " +
-                        courses[i].CreditHr + "\t " + courses[i].ContactHr + "\t" +
-                        courses[i].LabHr + "\t" + courses[i].LectureHr + "\t" + courses[i].DID
+                        courses[i].getCID() + "\t " + courses[i].getCName() + "\t " +
+                        courses[i].getCreditHr() + "\t " + courses[i].getContactHr() + "\t" +
+                        courses[i].getLabHr() + "\t" + courses[i].getLectureHr() + "\t" + courses[i].getDID()
                 );
                 i++;
             }
@@ -115,13 +112,13 @@ public class Course_Impl extends BasicFunctions {//extended to use all the basic
         stopOrContinue();
     }
     public void changeCourseTaken(int ci, char action){// used for updating and deleting course taken of every student
-        for(int i=0;i<Student.noOfStudents;i++){// iterating through the students, deleting the course taken
-            if (courses[ci].DID != students[i].SDID){
+        for(int i=0;i<Student.getNoOfStudents();i++){// iterating through the students, deleting the course taken
+            if (!Objects.equals(courses[ci].getDID(), students[i].getSDID())){
                 //if the student is not in the same department as the course
                 continue;
             }
-            for (int j = 0; j<students[i].noOfCoursesTaken; j++){// iterating through the course taken by the student
-                if (!Objects.equals(courses[ci].CID, students[i].coursesTaken[j].CID)){
+            for (int j = 0; j<students[i].getNoOfCoursesTaken(); j++){// iterating through the course taken by the student
+                if (!Objects.equals(courses[ci].getCID(), students[i].getCoursesTaken()[j].getCID())){
                     //if the course taken is not the same the course we want to delete
                     continue;
                 }
@@ -134,24 +131,21 @@ public class Course_Impl extends BasicFunctions {//extended to use all the basic
         }
     }
     public void updateCourseTaken(int cti, int si, int ci){// used for updating course only
-        students[si].coursesTaken[cti].CName = courses[ci].CName;
-        students[si].coursesTaken[cti].CreditHr = courses[ci].CreditHr;
-        students[si].coursesTaken[cti].ContactHr = courses[ci].ContactHr;
-        students[si].coursesTaken[cti].LabHr = courses[ci].LabHr;
-        students[si].coursesTaken[cti].LectureHr = courses[ci].LectureHr;
+        CourseTaken ct =new CourseTaken(courses[ci], students[si].getCoursesTaken()[cti].getGradeLetter());
+        students[si].setCoursesTaken(ct,cti);
     }
     public void deleteCourseTaken(int cti, int si){
-        for (int k = cti; k < students[si].noOfCoursesTaken - 1; k++){// ma-she-ga-she-g the course taken
-            students[si].coursesTaken[k] = students[si].coursesTaken[k+1];
+        for (int k = cti; k < students[si].getNoOfCoursesTaken() - 1; k++){// ma-she-ga-she-g the course taken
+            students[si].setCoursesTaken(students[si].getCoursesTaken()[k+1],k);
         }
-        students[si].noOfCoursesTaken--;
+        students[si].setNoOfCoursesTaken(students[si].getNoOfCoursesTaken() - 1 );
     }
     public void deleteCourse(int ci){// used for deleting course here and in department implementation
-        String cid = courses[ci].CID;
-        for (int i=ci; i<Course.noOfCourses - 1;i++){
+        String cid = courses[ci].getCID();
+        for (int i=ci; i<Course.getNoOfCourses() - 1;i++){
             courses[i] = courses[i+1];
         }
-        Course.noOfCourses--;
+        Course.setNoOfCourses(Course.getNoOfCourses() - 1);
         System.out.println("Course with ID \""+ cid +"\" deleted.");
     }
 

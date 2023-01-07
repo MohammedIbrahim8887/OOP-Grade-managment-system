@@ -1,59 +1,44 @@
 package Trident;
 
 public class Course {
-    String CID;
-    int CreditHr;
-    int ContactHr;
-    int LabHr;
-    int LectureHr;
-    String CName;
-    int DID;
-    public static int noOfCourses = 0;// moved here from curriculum
-    public int getDID() {
+    private final String CID;
+    private final int CreditHr;
+    private final int ContactHr;
+    private final int LabHr;
+    private final int LectureHr;
+    private final String CName;
+    private final String DID;
+    private static int noOfCourses = 0;// moved here from curriculum
+
+    public String getCID() {
+        return CID;
+    }
+    public String getDID() {
         return DID;
     }
-
-    public void setCName(String CName) {
-        this.CName = CName;
-    }
-
     public String getCName() {
         return CName;
     }
-
-    public void setContactHr(int contactHr) {
-        ContactHr = contactHr;
-    }
-
     public int getContactHr() {
         return ContactHr;
     }
-
-    public void setCreditHr(int creditHr) {
-        CreditHr = creditHr;
-    }
-
     public int getCreditHr() {
         return CreditHr;
     }
-
-    public void setLabHr(int labHr) {
-        LabHr = labHr;
-    }
-
     public int getLabHr() {
         return LabHr;
     }
-
-    public void setLectureHr(int lectureHr) {
-        LectureHr = lectureHr;
-    }
-
     public int getLectureHr() {
         return LectureHr;
     }
+    public static int getNoOfCourses() {
+        return noOfCourses;
+    }
+    public static void setNoOfCourses(int noOfCourses) {
+        Course.noOfCourses = noOfCourses;
+    }
 
-    public Course(String CID, int CreditHr, int ContactHr, int LabHr, int LectureHr, String CName, int DID){
+    public Course(String CID, int CreditHr, int ContactHr, int LabHr, int LectureHr, String CName, String DID){
         this.CID = CID;
         this.CreditHr = CreditHr;
         this.ContactHr = ContactHr;
