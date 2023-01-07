@@ -1,7 +1,7 @@
 package Trident;
 
 import static Trident.Curriculum.*;
-//TODO: make private
+//TODO: make clean
 public class Main {
     // read class curriculum after this to understand the main logic of the code
     public static void main(String[] args) {
@@ -40,23 +40,19 @@ public class Main {
             System.out.println("1. Add Department");
             System.out.println("2. Add Course");
             System.out.println("3. Add Student");
-            System.out.println("4. Add Grade");
+            System.out.println("4. Add Grade");//seems redundant since we hava updateCourse
             System.out.println("\t\t\t* * * * * * * * * * * * * * *");
             System.out.println("Enter your choice");
             choiceAdd = input.nextInt();
             switch (choiceAdd) {
                 case 1 : departmentAccess.addDep();
                          break;
-
                 case 2 : courseAccess.addCourse();
                          break;
-
                 case 3 : studentAccess.addStudent();
                          break;
-
                 case 4 : studentAccess.updateStudentGrade();
                          break;
-
                 default : System.out.println("Enter a valid choice");
                          break;
             }
@@ -94,7 +90,7 @@ public class Main {
             System.out.println("1. Display All Departments");
             System.out.println("2. Display Course List");
             System.out.println("3. Display Student List");
-            System.out.println("4. Display Student Info");
+            System.out.println("4. Display Student Grade");
             System.out.println("\t\t\t* * * * * * * * * * * * * * *");
             System.out.println("Enter your choice");
             choiceDisplay = input.nextInt();
@@ -125,16 +121,12 @@ public class Main {
             switch (choiceDelete) {
                 case 1 : departmentAccess.deleteDep();
                          break;
-
                 case 2 : courseAccess.deleteCourseForm();
                          break;
-
                 case 3 : studentAccess.deleteStudentForm();
                          break;
-
                 default :
                     System.out.println("Enter a valid choice");
-
             }
         }while(choiceDelete>3);
     }
