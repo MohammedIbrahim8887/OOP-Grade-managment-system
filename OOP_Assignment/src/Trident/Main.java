@@ -32,7 +32,7 @@ public class Main {
                 default: System.out.println("Enter a valid choice");
                          break;
             }
-        } while(true);
+        } while(menuChoice>5);
     }
     public static void addMenu(){
         int choiceAdd;

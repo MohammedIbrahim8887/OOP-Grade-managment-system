@@ -15,8 +15,8 @@ public class Course_Impl extends BasicFunctions {//extended to use all the basic
             return;
         }
         int location = departmentLocation(Did);
-        System.out.println("You Have Selected" + " " + departments[location].getDName() + " " + departments[location].getDID());
-        System.out.println("Enter number of courses you want to Add.");
+        System.out.println("You have Selected" + " " + departments[location].getDName() + " " + departments[location].getDID());
+        System.out.println("Enter number of courses you want to add.");
         int num = input.nextInt() + Course.getNoOfCourses();
         //the loop starts at the noOf departments
         //if this is the first entry i = 0
@@ -39,7 +39,7 @@ public class Course_Impl extends BasicFunctions {//extended to use all the basic
                 return;
             }
             courses[Course.getNoOfCourses()] = new Course(cid, creditHr, contactHr, lab, lec, cName, Did);
-            //after inputting all te data for the first course courses[0] it will ++ by one down below
+            //after inputting all the data for the first course courses[0] it will ++ by one down below
             //so that when the next entry is imputed it will be in courses[1]
             // this loop below is to update all the students in the department take the new course
             for (int i = 0; i < Student.getNoOfStudents(); i++) {
